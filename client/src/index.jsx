@@ -1,28 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from 'jquery';
+import { ajax } from 'jquery';
 import Search from './components/Search.jsx';
 import RepoList from './components/RepoList.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       repos: []
     }
-
+    this.search = this.search.bind(this);
   }
 
   search (term) {
     console.log(`${term} was searched`);
-    // TODO
+    ajax({
+      url: '/repos',
+      method: 'POST',
+      data: { name: term },
+      error: (error) => console.log('There was an error posting this user: ', error)
+    })
   }
 
   render () {
     return (<div>
       <h1>Github Fetcher</h1>
       <RepoList repos={this.state.repos}/>
-      <Search onSearch={this.search.bind(this)}/>
+      <Search onSearch={this.search}/>
     </div>)
   }
 }
