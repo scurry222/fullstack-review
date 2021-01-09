@@ -1,0 +1,20 @@
+.repo-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 50px;
+  justify-content: center;
+}
+
+.repo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #b1bfff3a;
+  width: 150px;
+  height: 200px;
+  border: 2px solid grey;
+  margin: 10px;
+  padding: 10px;
+}
