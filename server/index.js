@@ -19,12 +19,10 @@ app.post('/repos', function (req, res) {
   // save the repo information in the database
   const { name } = req.body;
   github.getReposByUsername(name, (data) => {
-    const repos = [];
-    for (let { name, url, stargazers_count } of data) {
-      repos.push({ name, url, stargazers_count })
+    for (let repo of data) {
+      db.save(name, repo);
     }
-    db.save(name, repos);
-    res.status(200).send(repos);
+    res.status(200).send();
   });
 });
 
