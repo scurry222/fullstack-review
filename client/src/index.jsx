@@ -9,17 +9,24 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      repos: []
+      repos: [],
     }
     this.search = this.search.bind(this);
     this.getRepos = this.getRepos.bind(this);
   }
 
+  componentDidMount() {
+    this.getRepos();
+  }
+
   getRepos() {
     axios.get('/repos')
-      .then(({data: repos}) => this.setState({ repos }))
+      .then(({data: repos}) =>
+        this.setState({ repos })
+      )
       .catch((err) => console.log('Error getting from db: ', err));
   }
+
 
   search (term) {
     console.log(`${term} was searched`);

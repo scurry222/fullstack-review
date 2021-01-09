@@ -19,7 +19,7 @@ app.post('/repos', function (req, res) {
   // save the repo information in the database
   const { name } = req.body;
   github.getReposByUsername(name, (data) => {
-    for (let repo of data) {
+    for (const repo of data) {
       db.save(name, repo);
     }
     res.status(200).send();
@@ -29,12 +29,11 @@ app.post('/repos', function (req, res) {
 app.get('/repos', function (req, res) {
   // TODO - your code here!
   // This route should send back the top 25 repos
-  db.getRepos((err, repos) => {
-    if (err) {
-      console.log(err);
-      return;
+  db.getRepos((err, data) => {
+    const repos = [];
+    for (let i = 0; i < 25; i++) {
+      repos.push(data[i]._doc);
     }
-    console.log(repos);
     res.status(200).send(repos);
   })
 });
